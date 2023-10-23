@@ -96,3 +96,9 @@ b. declare the mutableStateList in the WillnessScreen Like this
 
 ```
 c. do Modification in TaskItem 
+```kotlin
+ Checkbox(
+            checked = task.checkedState.value,
+            onCheckedChange = {task.checkedState.value=!task.checkedState.value}
+        )
+```
