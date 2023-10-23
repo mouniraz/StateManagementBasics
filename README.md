@@ -105,13 +105,12 @@ c. do Modification in TaskItem
 ## Use A TakViewModel to maintain state
 in the place of declaring a state in the WellnessScreen, we will declare a ViewModel to declare the state and operations of state 
 1. declare a ViewModelTak extendink a ViewModel Class
-   ```kotlin
+```kotlin
    class WellnessViewModel: ViewModel()
 {
     private val _statelist= getWellnessTasks().toMutableStateList();
     val statelist:List<WellnessTask>
         get() = _statelist
-
     fun onCheckChange(item: WellnessTask)
     {
         _statelist.toList().find { it.id==item.id }?.let{
@@ -120,17 +119,13 @@ in the place of declaring a state in the WellnessScreen, we will declare a ViewM
     }
    }
    private fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
-
    ```
 2. Declare and instantiate a ViewModel in WellnessScreen
 ```kotlin
  val wellnessViewModel=WellnessViewModel()
-    Column(modifier = modifier) {
-
-        WellnessTasksList(
+    Column(modifier = modifier) { WellnessTasksList(
             list = wellnessViewModel.statelist,
-            oncheckChange =  {wellnastask->wellnessViewModel.onCheckChange(wellnastask)}
-        )
+            oncheckChange =  {wellnastask->wellnessViewModel.onCheckChange(wellnastask)}       )
     }
 ```
 3. redefine WellnessTasksList
@@ -140,11 +135,9 @@ in the place of declaring a state in the WellnessScreen, we will declare a ViewM
     oncheckChange:(WellnessTask)->Unit,
     modifier: Modifier = Modifier
 
-) {
-    LazyColumn(
+) {    LazyColumn(
         modifier = modifier
-    ) {
-        items(items = list,
+    ) {        items(items = list,
             key = { task -> task.id })
         { task ->
             WellnessTaskItem(
@@ -152,8 +145,9 @@ in the place of declaring a state in the WellnessScreen, we will declare a ViewM
                 onCheckChange = { oncheckChange(task) },
             )
    ```
+
 5. redefine WellnessTaskItem
-´´´kotlin
+```kotlin
 @Composable
 fun WellnessTaskItem(
     task:WellnessTask,
@@ -168,4 +162,4 @@ fun WellnessTaskItem(
         )
    
 }
-```
+````
