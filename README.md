@@ -74,4 +74,25 @@ fun WellnessScreen(
     }
 }
 ```
-  
+5. scroll your list and say what´is the problem with the checkboxs
+6. To correct this problem, we will host the checkboxes states in a mutableStateList of WellnessTasks
+to do this, we will
+a. modify the declaration of WellnessTask
+```kotlin
+data  class WellnessTask(
+    val id: Int,
+    val label: String,
+    var checkedState: MutableState<Boolean> =  mutableStateOf(false)
+)
+```
+b. declare the mutableStateList in the WillnessScreen Like this
+```kotlin
+    var statelist= getWellnessTasks().toMutableStateList();
+ Column(modifier = modifier) {
+
+        WellnessTasksList(
+            list = statelist.toList(),
+        )
+
+```
+c. do Modification in TaskItem 
