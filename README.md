@@ -102,3 +102,71 @@ c. do Modification in TaskItem
             onCheckedChange = {task.checkedState.value=!task.checkedState.value}
         )
 ```
+## Use A TakViewModel to maintain state
+in the place of declaring a state in the WellnessScreen, we will declare a ViewModel to declare the state and operations of state 
+1. declare a ViewModelTak extendink a ViewModel Class
+   ```kotlin
+   class WellnessViewModel: ViewModel()
+{
+    private val _statelist= getWellnessTasks().toMutableStateList();
+    val statelist:List<WellnessTask>
+        get() = _statelist
+
+    fun onCheckChange(item: WellnessTask)
+    {
+        _statelist.toList().find { it.id==item.id }?.let{
+            it.checkedState.value=!it.checkedState.value
+        }
+    }
+   }
+   private fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
+
+   ```
+2. Declare and instantiate a ViewModel in WellnessScreen
+```kotlin
+ val wellnessViewModel=WellnessViewModel()
+    Column(modifier = modifier) {
+
+        WellnessTasksList(
+            list = wellnessViewModel.statelist,
+            oncheckChange =  {wellnastask->wellnessViewModel.onCheckChange(wellnastask)}
+        )
+    }
+```
+3. redefine WellnessTasksList
+   ```kotlin
+   fun WellnessTasksList(
+    list: List<WellnessTask>,
+    oncheckChange:(WellnessTask)->Unit,
+    modifier: Modifier = Modifier
+
+) {
+    LazyColumn(
+        modifier = modifier
+    ) {
+        items(items = list,
+            key = { task -> task.id })
+        { task ->
+            WellnessTaskItem(
+                task = task,
+                onCheckChange = { oncheckChange(task) },
+            )
+   ```
+5. redefine WellnessTaskItem
+´´´kotlin
+@Composable
+fun WellnessTaskItem(
+    task:WellnessTask,
+    onCheckChange:(WellnessTask)->Unit,
+    modifier: Modifier = Modifier
+)
+{
+..........
+   Checkbox(
+            checked = task.checkedState.value,
+            onCheckedChange = {onCheckChange(task)}
+        )
+   
+}
+```
+5.redefine 
