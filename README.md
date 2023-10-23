@@ -6,8 +6,7 @@
    data  class WellnessTask(
     val id: Int,
     val label: String,
-    val initialChecked: Boolean = false
-)
+    val initialChecked: Boolean = false)
    ```
 2. To create a Lazy column create first TaskWellnessItem (fill the blanks with correct proposition)
 ```Kotlin
@@ -36,6 +35,7 @@ fun WellnessTaskItem(
         }
     }
 }
+```
 3. Create a list of WellnessItems using LazyColumn
 ```kotlin
 @Composable
@@ -56,6 +56,7 @@ fun WellnessTasksList(
         }
     }
 }
+```
 4. Create a WellnessScreen and Test your MainActivity with a List of WellnessTasks 
 
 ```kotlin
@@ -73,4 +74,4 @@ fun WellnessScreen(
     }
 }
 ```
-```    
+  
