@@ -160,3 +160,4 @@ fun WellnessTaskItem(
    
 }
 ````
+6. program a close icon to delete a task using your viewModel
