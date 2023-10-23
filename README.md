@@ -42,17 +42,14 @@ fun WellnessTaskItem(
 fun WellnessTasksList(
     list: List<WellnessTask>,
     modifier: Modifier = Modifier
-) {
-    LazyColumn(
+) { LazyColumn(
         modifier = modifier
     ) {
         items(items = list,
             key = { task -> task.id })
         { task ->
             WellnessTaskItem(
-                task = task,
-
-            )
+                task = task, )
         }
     }
 }
